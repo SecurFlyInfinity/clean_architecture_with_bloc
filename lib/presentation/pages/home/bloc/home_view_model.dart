@@ -16,19 +16,18 @@ class HomeViewModel extends Bloc<HomeEvent, HomeState> {
     text = "";
   }
   HomeViewModel() : super(HomeInitial()) {
-   // on<CreateContactEvent>(createContact);
+    on<CreateContactEvent>(createContact);
   }
 
-  // void createContact(CreateContactEvent event,Emitter emitter){
-  //   Logger.debug(message: event.data,tag: "onChangeSearch");
-  //   text = event.data;
-  //   emit(HomeRefresh(event.data));
+  void createContact(CreateContactEvent event,Emitter emitter){
+    text = event.data;
+    emitter.call(HomeRefresh());
+  }
+
+  // void createContact(String data){
+  //   text = data;
+  //   emit(HomeRefresh());
   // }
-
-  void createContact(String data){
-    text = data;
-    emit(HomeRefresh());
-  }
 
   void dispose(){
     //cSearch.dispose();

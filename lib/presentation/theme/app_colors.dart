@@ -3,5 +3,5 @@ import 'package:flutter/material.dart';
 
 class AppColors{
   Color get primary  => Colors.black;
-  Color get background  => Colors.red.shade400;
+  Color get background  => Colors.green.shade100;
 }
