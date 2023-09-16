@@ -1,21 +1,18 @@
-import 'dart:async';
 
-import 'package:architecture/config/logger.dart';
-import 'package:bloc/bloc.dart';
 import 'package:flutter/material.dart';
-import 'package:meta/meta.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 part 'home_event.dart';
 part 'home_state.dart';
 
-class HomeViewModel extends Bloc<HomeEvent, HomeState> {
+class HomeBloc extends Bloc<HomeEvent, HomeState> {
  // late TextEditingController cSearch;
   String? text;
   void init(){
    // cSearch = TextEditingController();
     text = "";
   }
-  HomeViewModel() : super(HomeInitial()) {
+  HomeBloc() : super(HomeInitial()) {
     on<CreateContactEvent>(createContact);
   }
 

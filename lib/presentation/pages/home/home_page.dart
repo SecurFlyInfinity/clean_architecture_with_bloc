@@ -1,10 +1,7 @@
-import 'package:architecture/config/logger.dart';
-import 'package:architecture/data/base/base_widget.dart';
-import 'package:architecture/presentation/pages/home/bloc/home_view_model.dart';
+import 'package:architecture/presentation/pages/home/bloc/home_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../../../config/initialize.dart';
 import '../../theme/theme_config.dart';
 import '../../widget/shared_widget.dart';
 
@@ -13,10 +10,9 @@ class HomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    Initialize.init(context);
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: ThemeConfig.colors.background,
+        backgroundColor: ThemeConfig.colors.contactColor,
         title: Text(
           ThemeConfig.strings.contacts,
           style: ThemeConfig.styles.style20,
@@ -30,7 +26,7 @@ class HomePage extends StatelessWidget {
           child: Padding(
             padding: const EdgeInsets.all(8.0),
             child: SharedWidget.search(
-              onChanged: (v)=>context.read<HomeViewModel>().add(CreateContactEvent(v))
+              onChanged: (v)=>context.read<HomeBloc>().add(CreateContactEvent(v))
             ),
           ),
         ),
@@ -47,7 +43,7 @@ class HomePage extends StatelessWidget {
               'Height: ${ThemeConfig.dimens.height.toInt()}',
               style: ThemeConfig.styles.style14,
             ),
-            Divider(),
+            const Divider(),
             Text(
               "Font Big20 Title: ${ThemeConfig.dimens.font20.toInt()}",
               style: ThemeConfig.styles.style20,
@@ -68,10 +64,10 @@ class HomePage extends StatelessWidget {
               "Subtitle: ${ThemeConfig.dimens.font12.toInt()}",
               style: ThemeConfig.styles.style12,
             ),
-            BlocBuilder<HomeViewModel,HomeState>(
+            BlocBuilder<HomeBloc,HomeState>(
                 builder: (ctx,state){
               return Text(
-                context.read<HomeViewModel>().text??"",
+                context.read<HomeBloc>().text??"",
                 style: ThemeConfig.styles.style12,
               );
             }),
@@ -79,7 +75,7 @@ class HomePage extends StatelessWidget {
         ),
       ),
       floatingActionButton: FloatingActionButton(
-        backgroundColor: ThemeConfig.colors.background,
+        backgroundColor: ThemeConfig.colors.contactColor,
         onPressed: (){},
         child: const Icon(Icons.add),
       ),
