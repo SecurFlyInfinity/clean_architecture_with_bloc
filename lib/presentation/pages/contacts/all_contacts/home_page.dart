@@ -1,9 +1,11 @@
-import 'package:architecture/presentation/pages/home/bloc/home_bloc.dart';
+
+import 'package:architecture/config/app_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../../theme/theme_config.dart';
-import '../../widget/shared_widget.dart';
+import '../../../theme/theme_config.dart';
+import '../../../widget/shared_widget.dart';
+import 'bloc/home_bloc.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
@@ -13,9 +15,13 @@ class HomePage extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: ThemeConfig.colors.contactColor,
+        automaticallyImplyLeading: false,
+        leading: IconButton(onPressed: (){
+          Navigator.pop(context);
+          }, icon: const Icon(Icons.close)),
         title: Text(
           ThemeConfig.strings.contacts,
-          style: ThemeConfig.styles.style20,
+          style: ThemeConfig.styles.style18,
         ),
         actions: [
           IconButton(onPressed: () {}, icon: const Icon(Icons.sunny)),
@@ -26,7 +32,7 @@ class HomePage extends StatelessWidget {
           child: Padding(
             padding: const EdgeInsets.all(8.0),
             child: SharedWidget.search(
-              onChanged: (v)=>context.read<HomeBloc>().add(CreateContactEvent(v))
+              onChanged: (v) => context.read<HomeBloc>().add(CreateContactEvent(v))
             ),
           ),
         ),
@@ -65,18 +71,18 @@ class HomePage extends StatelessWidget {
               style: ThemeConfig.styles.style12,
             ),
             BlocBuilder<HomeBloc,HomeState>(
-                builder: (ctx,state){
-              return Text(
-                context.read<HomeBloc>().text??"",
-                style: ThemeConfig.styles.style12,
-              );
-            }),
+                builder: (ctx,state)=>Text(
+                  context.read<HomeBloc>().text??"",
+                  style: ThemeConfig.styles.style12,
+                )),
           ],
         ),
       ),
       floatingActionButton: FloatingActionButton(
         backgroundColor: ThemeConfig.colors.contactColor,
-        onPressed: (){},
+        onPressed: (){
+          Navigator.pushNamed(context, AppRoute.addContactRoute);
+        },
         child: const Icon(Icons.add),
       ),
     );

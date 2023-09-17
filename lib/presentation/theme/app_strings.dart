@@ -3,9 +3,20 @@ class AppStrings{
   String get appName =>"Clean Architecture";
   String get search =>"Search";
   String get contacts =>"Contacts";
+  String get createContact =>"Create Contact";
   String get dashboard =>"Dashboard";
   String get fontName =>"SpaceGrotesk";
   String get sqlite =>"SQLite";
   String get wizardWorld =>"Wizard World";
   String get restAPI =>"Restful API";
+  String get addPicture =>"Add Picture";
+  String get save =>"Save";
+  String get firstName =>"First Name";
+  String get lastName =>"Last Name";
+  String get companyName =>"Company";
+  String get phone =>"Phone";
+  String get email =>"Email";
+  String get birthday =>"Birthday";
+  String get ok =>"OK";
+  String get saveContactMsg =>"Add info to save as a contact.";
 }

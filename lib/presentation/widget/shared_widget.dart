@@ -20,4 +20,9 @@ class SharedWidget{
       ),
     );
   }
+
+  static SizedBox width(double size)=>SizedBox(width: size);
+  static SizedBox height(double size)=>SizedBox(height: size);
+
+
 }

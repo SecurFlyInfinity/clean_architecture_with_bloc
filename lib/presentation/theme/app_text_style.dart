@@ -27,4 +27,9 @@ class AppTextStyle {
       fontSize: ThemeConfig.dimens.font20,
       fontFamily: ThemeConfig.strings.fontName,
       color: ThemeConfig.colors.primary);
+
+  TextStyle get styleHint14 => TextStyle(
+      fontSize: ThemeConfig.dimens.font14,
+      fontFamily: ThemeConfig.strings.fontName,
+      color: ThemeConfig.colors.hintColor);
 }
