@@ -25,6 +25,7 @@ class AddContactPage extends StatelessWidget {
         automaticallyImplyLeading: false,
         leading: IconButton(
             onPressed: () {
+              dispose();
               Navigator.pop(context);
             },
             icon: const Icon(Icons.close)),
@@ -157,5 +158,13 @@ class AddContactPage extends StatelessWidget {
       ));
       Navigator.pop(context,true);
     }
+  }
+
+  void dispose(){
+    cFirstName.dispose();
+    cLastName.dispose();
+    cEmail.dispose();
+    cCompany.dispose();
+    cPhone.dispose();
   }
 }

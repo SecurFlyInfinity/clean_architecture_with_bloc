@@ -1,4 +1,3 @@
-import 'dart:typed_data';
 
 import 'package:architecture/config/logger.dart';
 import 'package:architecture/data/dao/contact_dao.dart';
@@ -30,6 +29,7 @@ class ContactsBloc extends Bloc<ContactsEvent, HomeState> {
   }
 
   void getContacts(GetContactEvent event, Emitter emitter) async {
+
     Logger.debug(message: "GetContacts");
     contacts.clear();
     allContacts.clear();

@@ -27,17 +27,13 @@ class DashboardPage extends StatelessWidget {
             backgroundColor: Colors.orange.shade50,
             title: ThemeConfig.strings.contacts,
             subTitle: ThemeConfig.strings.sqlite,
-            onTap: (){
-              Navigator.pushNamed(context, AppRoute.homeRoute);
-            },
+            onTap: () => Navigator.pushNamed(context, AppRoute.homeRoute),
           ),
           DashboardItem(
             backgroundColor: Colors.blue.shade50,
             title: ThemeConfig.strings.wizardWorld,
             subTitle: ThemeConfig.strings.restAPI,
-            onTap: (){
-              Navigator.pushNamed(context, AppRoute.wizardRoute);
-            },
+            onTap: () => Navigator.pushNamed(context, AppRoute.wizardRoute),
           ),
         ],
       ),

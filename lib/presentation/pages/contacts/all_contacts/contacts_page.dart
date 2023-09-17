@@ -1,6 +1,5 @@
 import 'package:architecture/config/app_route.dart';
 import 'package:architecture/domain/entity/contact_entity.dart';
-import 'package:architecture/domain/shared/utility.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -13,7 +12,7 @@ class ContactsPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    if(context.read<ContactsBloc>().state is HomeInitial){
+    if (context.read<ContactsBloc>().state is HomeInitial) {
       context.read<ContactsBloc>().add(GetContactEvent());
     }
     return Scaffold(
@@ -21,9 +20,7 @@ class ContactsPage extends StatelessWidget {
         backgroundColor: ThemeConfig.colors.contactColor,
         automaticallyImplyLeading: false,
         leading: IconButton(
-            onPressed: () {
-              Navigator.pop(context);
-            },
+            onPressed: () =>Navigator.pop(context),
             icon: const Icon(Icons.close)),
         title: Text(
           ThemeConfig.strings.contacts,
@@ -37,7 +34,8 @@ class ContactsPage extends StatelessWidget {
           child: Padding(
             padding: const EdgeInsets.all(8.0),
             child: SharedWidget.search(
-                onChanged: (v) =>context.read<ContactsBloc>().add(SearchContactEvent(v))),
+                onChanged: (v) =>
+                    context.read<ContactsBloc>().add(SearchContactEvent(v))),
           ),
         ),
       ),
@@ -45,23 +43,22 @@ class ContactsPage extends StatelessWidget {
         builder: (context, state) {
           ContactsBloc bloc = context.read<ContactsBloc>();
           return ListView.builder(
-            padding: const EdgeInsets.symmetric(horizontal: 8,vertical: 16),
+              padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 16),
               itemBuilder: (ctx, index) {
                 ContactEntity contact = bloc.contacts[index];
                 return ListTile(
-                  onTap: (){
-                    Navigator.pushNamed(context, AppRoute.contactInfoRoute,arguments: contact);
-                  },
+                  onTap: () => Navigator.pushNamed(
+                      context, AppRoute.contactInfoRoute,
+                      arguments: contact),
                   shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(30)
-                  ),
+                      borderRadius: BorderRadius.circular(30)),
                   leading: Hero(
                     tag: contact.phone!,
                     child: CircleAvatar(
-                      radius: 20,
-                      backgroundImage: bloc.getProfile(contact.profile),
-                      child: bloc.getAddImageIcon(contact.profile,contact.firstName!.substring(0,1))
-                    ),
+                        radius: 20,
+                        backgroundImage: bloc.getProfile(contact.profile),
+                        child: bloc.getAddImageIcon(contact.profile,
+                            contact.firstName!.substring(0, 1))),
                   ),
                   title: Text(contact.fullName.toString()),
                 );
@@ -71,14 +68,12 @@ class ContactsPage extends StatelessWidget {
       ),
       floatingActionButton: FloatingActionButton(
         backgroundColor: ThemeConfig.colors.contactColor,
-        onPressed: () {
-          Navigator.pushNamed(context, AppRoute.addContactRoute).then((value){
-
-            if(value!=null){
-              context.read<ContactsBloc>().add(GetContactEvent());
-            }
-          });
-        },
+        onPressed: () => Navigator.pushNamed(context, AppRoute.addContactRoute)
+            .then((value) {
+          if (value != null) {
+            context.read<ContactsBloc>().add(GetContactEvent());
+          }
+        }),
         child: const Icon(Icons.add),
       ),
     );
