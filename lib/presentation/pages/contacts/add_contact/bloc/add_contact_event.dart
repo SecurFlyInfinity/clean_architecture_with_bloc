@@ -18,3 +18,8 @@ class SaveContactEvent extends AddContactEvent{
       this.email,
       this.dob});
 }
+
+class PickImageEvent extends AddContactEvent{
+  final source;
+  PickImageEvent(this.source);
+}

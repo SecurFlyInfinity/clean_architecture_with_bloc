@@ -47,6 +47,7 @@ class ContactEntity {
   String? _addOn;
 
   String? get firstName => _firstName;
+  String? get fullName => _lastName!=null?"${_firstName!} ${_lastName!}":_firstName;
   String? get lastName => _lastName;
   String? get companyName => _companyName;
   String? get phone => _phone;

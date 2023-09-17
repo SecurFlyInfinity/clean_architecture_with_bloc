@@ -1,19 +1,20 @@
 import 'package:architecture/config/app_route.dart';
 import 'package:architecture/domain/entity/contact_entity.dart';
+import 'package:architecture/domain/shared/utility.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../theme/theme_config.dart';
 import '../../../widget/shared_widget.dart';
-import 'bloc/home_bloc.dart';
+import 'bloc/contacts_bloc.dart';
 
-class HomePage extends StatelessWidget {
-  const HomePage({super.key});
+class ContactsPage extends StatelessWidget {
+  const ContactsPage({super.key});
 
   @override
   Widget build(BuildContext context) {
-    if(context.read<HomeBloc>().state is HomeInitial){
-      context.read<HomeBloc>().add(GetContactEvent());
+    if(context.read<ContactsBloc>().state is HomeInitial){
+      context.read<ContactsBloc>().add(GetContactEvent());
     }
     return Scaffold(
       appBar: AppBar(
@@ -29,7 +30,6 @@ class HomePage extends StatelessWidget {
           style: ThemeConfig.styles.style18,
         ),
         actions: [
-          IconButton(onPressed: () {}, icon: const Icon(Icons.sunny)),
           IconButton(onPressed: () {}, icon: const Icon(Icons.more_vert)),
         ],
         bottom: PreferredSize(
@@ -37,37 +37,46 @@ class HomePage extends StatelessWidget {
           child: Padding(
             padding: const EdgeInsets.all(8.0),
             child: SharedWidget.search(
-                onChanged: (v) {
-
-                }),
+                onChanged: (v) =>context.read<ContactsBloc>().add(SearchContactEvent(v))),
           ),
         ),
       ),
-      body: BlocConsumer<HomeBloc, HomeState>(
-        listener: (context, state) {
-          if(state is HomeInitial){
-            context.read<HomeBloc>().add(GetContactEvent());
-          }
-        },
+      body: BlocBuilder<ContactsBloc, HomeState>(
         builder: (context, state) {
-          return ListView.separated(
+          ContactsBloc bloc = context.read<ContactsBloc>();
+          return ListView.builder(
+            padding: const EdgeInsets.symmetric(horizontal: 8,vertical: 16),
               itemBuilder: (ctx, index) {
-                ContactEntity contact = context.read<HomeBloc>().contacts[index];
+                ContactEntity contact = bloc.contacts[index];
                 return ListTile(
-                  title: Text(contact.firstName.toString()),
+                  onTap: (){
+                    Navigator.pushNamed(context, AppRoute.contactInfoRoute,arguments: contact);
+                  },
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(30)
+                  ),
+                  leading: Hero(
+                    tag: contact.phone!,
+                    child: CircleAvatar(
+                      radius: 20,
+                      backgroundImage: bloc.getProfile(contact.profile),
+                      child: bloc.getAddImageIcon(contact.profile,contact.firstName!.substring(0,1))
+                    ),
+                  ),
+                  title: Text(contact.fullName.toString()),
                 );
               },
-              separatorBuilder: (ctx, index) {
-                return Divider();
-              },
-              itemCount: context.read<HomeBloc>().contacts.length);
+              itemCount: bloc.contacts.length);
         },
       ),
       floatingActionButton: FloatingActionButton(
         backgroundColor: ThemeConfig.colors.contactColor,
         onPressed: () {
           Navigator.pushNamed(context, AppRoute.addContactRoute).then((value){
-            context.read<HomeBloc>().add(GetContactEvent());
+
+            if(value!=null){
+              context.read<ContactsBloc>().add(GetContactEvent());
+            }
           });
         },
         child: const Icon(Icons.add),

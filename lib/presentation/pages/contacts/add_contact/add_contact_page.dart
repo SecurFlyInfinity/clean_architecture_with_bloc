@@ -2,6 +2,7 @@ import 'package:architecture/presentation/pages/contacts/add_contact/bloc/add_co
 import 'package:architecture/presentation/widget/shared_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:image_picker/image_picker.dart';
 
 import '../../../../domain/shared/dialog_utils.dart';
 import '../../../../domain/shared/validators.dart';
@@ -58,13 +59,22 @@ class AddContactPage extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 SharedWidget.height(ThemeConfig.dimens.d16),
-                CircleAvatar(
-                  radius: 50,
-                  backgroundColor: ThemeConfig.colors.contactColor,
-                  child: const Icon(Icons.add_a_photo_outlined),
+                BlocBuilder<AddContactBloc, AddContactState>(
+                  builder: (context, state) {
+                    return InkWell(
+                      borderRadius: BorderRadius.circular(50),
+                      onTap: ()=>context.read<AddContactBloc>().add(PickImageEvent(ImageSource.gallery)),
+                      child: CircleAvatar(
+                        radius: 50,
+                        backgroundImage: context.read<AddContactBloc>().getProfile(),
+                        backgroundColor: ThemeConfig.colors.contactColor,
+                        child: state is AddContactLoading?const Center(child: CircularProgressIndicator(),):context.read<AddContactBloc>().getAddImageIcon(),
+                      ),
+                    );
+                  },
                 ),
                 TextButton(
-                  onPressed: () {},
+                  onPressed: () =>context.read<AddContactBloc>().add(PickImageEvent(ImageSource.gallery)),
                   child: Text(ThemeConfig.strings.addPicture),
                 ),
                 SharedWidget.height(ThemeConfig.dimens.d16),
@@ -122,8 +132,8 @@ class AddContactPage extends StatelessWidget {
   }
 
   void checkAndSave(BuildContext context) {
-
-    if(Validators.containsOnlyWhitespace(cFirstName.text) || Validators.containsOnlyWhitespace(cPhone.text)){
+    if (Validators.containsOnlyWhitespace(cFirstName.text) ||
+        Validators.containsOnlyWhitespace(cPhone.text)) {
       DialogUtils.showCustomDialog(
         context,
         title: ThemeConfig.strings.saveContactMsg,
@@ -137,15 +147,15 @@ class AddContactPage extends StatelessWidget {
           )
         ],
       );
-    }else{
+    } else {
       context.read<AddContactBloc>().add(SaveContactEvent(
-        firstName: cFirstName.text,
-        phone: cPhone.text,
-        company: cCompany.text,
-        email: cEmail.text,
-        lastName: cLastName.text
+          firstName: cFirstName.text,
+          phone: cPhone.text,
+          company: cCompany.text,
+          email: cEmail.text,
+          lastName: cLastName.text
       ));
-      Navigator.pop(context);
+      Navigator.pop(context,true);
     }
   }
 }

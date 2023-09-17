@@ -28,6 +28,21 @@ class AppTextStyle {
       fontFamily: ThemeConfig.strings.fontName,
       color: ThemeConfig.colors.primary);
 
+  TextStyle get style22 => TextStyle(
+      fontSize: ThemeConfig.dimens.font22,
+      fontFamily: ThemeConfig.strings.fontName,
+      color: ThemeConfig.colors.primary);
+
+  TextStyle get style24 => TextStyle(
+      fontSize: ThemeConfig.dimens.font24,
+      fontFamily: ThemeConfig.strings.fontName,
+      color: ThemeConfig.colors.primary);
+
+  TextStyle get style26 => TextStyle(
+      fontSize: ThemeConfig.dimens.font26,
+      fontFamily: ThemeConfig.strings.fontName,
+      color: ThemeConfig.colors.primary);
+
   TextStyle get styleHint14 => TextStyle(
       fontSize: ThemeConfig.dimens.font14,
       fontFamily: ThemeConfig.strings.fontName,

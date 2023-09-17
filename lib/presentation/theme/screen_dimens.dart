@@ -13,6 +13,9 @@ class ScreenDimens{
   double get font16 => size.width/22.5;
   double get font18 => size.width/20;
   double get font20 => size.width/18;
+  double get font22 => size.width/16;
+  double get font24 => size.width/14;
+  double get font26 => size.width/12;
   double get d18 => 18;
   double get d16 => 16;
   double get d10 => 10;

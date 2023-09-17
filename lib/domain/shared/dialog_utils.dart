@@ -16,6 +16,8 @@ class DialogUtils {
         context: context,
         builder: (_) {
           return AlertDialog(
+            backgroundColor: Colors.white,
+            elevation: 0,
             title: Text(title,style: ThemeConfig.styles.style16,),
             content: subtitle!=null?Text(subtitle??"",style: ThemeConfig.styles.style12,):null,
             actions: actions

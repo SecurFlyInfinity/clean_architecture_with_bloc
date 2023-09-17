@@ -1,4 +1,4 @@
-part of 'home_bloc.dart';
+part of 'contacts_bloc.dart';
 
 @immutable
 abstract class HomeState {}
