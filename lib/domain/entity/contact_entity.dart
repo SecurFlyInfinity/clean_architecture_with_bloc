@@ -5,6 +5,7 @@
 /// email : ""
 /// dateOfBirth : ""
 /// profile : ""
+/// addOn : ""
 
 class ContactEntity {
   ContactEntity({
@@ -14,7 +15,8 @@ class ContactEntity {
       String? phone, 
       String? email, 
       String? dateOfBirth, 
-      String? profile,}){
+      String? profile, 
+      String? addOn,}){
     _firstName = firstName;
     _lastName = lastName;
     _companyName = companyName;
@@ -22,6 +24,7 @@ class ContactEntity {
     _email = email;
     _dateOfBirth = dateOfBirth;
     _profile = profile;
+    _addOn = addOn;
 }
 
   ContactEntity.fromJson(dynamic json) {
@@ -32,6 +35,7 @@ class ContactEntity {
     _email = json['email'];
     _dateOfBirth = json['dateOfBirth'];
     _profile = json['profile'];
+    _addOn = json['addOn'];
   }
   String? _firstName;
   String? _lastName;
@@ -40,6 +44,7 @@ class ContactEntity {
   String? _email;
   String? _dateOfBirth;
   String? _profile;
+  String? _addOn;
 
   String? get firstName => _firstName;
   String? get lastName => _lastName;
@@ -48,6 +53,7 @@ class ContactEntity {
   String? get email => _email;
   String? get dateOfBirth => _dateOfBirth;
   String? get profile => _profile;
+  String? get addOn => _addOn;
 
   Map<String, dynamic> toJson() {
     final map = <String, dynamic>{};
@@ -58,6 +64,7 @@ class ContactEntity {
     map['email'] = _email;
     map['dateOfBirth'] = _dateOfBirth;
     map['profile'] = _profile;
+    map['addOn'] = _addOn;
     return map;
   }
 

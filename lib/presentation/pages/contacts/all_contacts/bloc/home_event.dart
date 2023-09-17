@@ -2,8 +2,5 @@ part of 'home_bloc.dart';
 
 @immutable
 abstract class HomeEvent {}
-class CreateContactEvent extends HomeEvent{
-  final String data;
+class GetContactEvent extends HomeEvent{}
 
-  CreateContactEvent(this.data);
-}

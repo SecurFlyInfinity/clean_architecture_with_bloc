@@ -35,7 +35,6 @@ class ContactDao extends IDao<ContactEntity>{
   @override
   Future<int> insertDB(Map<String, dynamic> entity) async{
     final db = await service.db();
-    entity['addOn'] = DateTime.now().millisecondsSinceEpoch;
     int id = await db.insert(tableName, entity);
     Logger.debug(tag: "Table $tableName: $id",message: "Inserted id = $id");
     return id;
@@ -57,20 +56,24 @@ class ContactDao extends IDao<ContactEntity>{
 
   @override
   List<ContactEntity> fromList(List<Map<String, dynamic>> query) {
-    // TODO: implement fromList
-    throw UnimplementedError();
+    List<ContactEntity> entity = [];
+    for (Map<String, dynamic> map in query) {
+      entity.add(fromMap(map));
+    }
+    return entity;
   }
 
   @override
   ContactEntity fromMap(Map<String, dynamic> query) {
-    // TODO: implement fromMap
-    throw UnimplementedError();
+    ContactEntity entity = ContactEntity.fromJson(query);
+    return entity;
   }
 
   @override
-  Future<List<ContactEntity>> getAllData(String id) {
-    // TODO: implement getAllData
-    throw UnimplementedError();
+  Future<List<ContactEntity>> getAllData(String id) async{
+    final db = await service.db();
+    List<Map<String, dynamic>> maps = await db.query(tableName);
+    return fromList(maps);
   }
 
   @override

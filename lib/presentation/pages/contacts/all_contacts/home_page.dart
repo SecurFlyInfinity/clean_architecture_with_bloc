@@ -1,5 +1,5 @@
-
 import 'package:architecture/config/app_route.dart';
+import 'package:architecture/domain/entity/contact_entity.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -12,13 +12,18 @@ class HomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    if(context.read<HomeBloc>().state is HomeInitial){
+      context.read<HomeBloc>().add(GetContactEvent());
+    }
     return Scaffold(
       appBar: AppBar(
         backgroundColor: ThemeConfig.colors.contactColor,
         automaticallyImplyLeading: false,
-        leading: IconButton(onPressed: (){
-          Navigator.pop(context);
-          }, icon: const Icon(Icons.close)),
+        leading: IconButton(
+            onPressed: () {
+              Navigator.pop(context);
+            },
+            icon: const Icon(Icons.close)),
         title: Text(
           ThemeConfig.strings.contacts,
           style: ThemeConfig.styles.style18,
@@ -32,56 +37,38 @@ class HomePage extends StatelessWidget {
           child: Padding(
             padding: const EdgeInsets.all(8.0),
             child: SharedWidget.search(
-              onChanged: (v) => context.read<HomeBloc>().add(CreateContactEvent(v))
-            ),
+                onChanged: (v) {
+
+                }),
           ),
         ),
       ),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            Text(
-              'Width: ${ThemeConfig.dimens.width.toInt()}',
-              style: ThemeConfig.styles.style14,
-            ),
-            Text(
-              'Height: ${ThemeConfig.dimens.height.toInt()}',
-              style: ThemeConfig.styles.style14,
-            ),
-            const Divider(),
-            Text(
-              "Font Big20 Title: ${ThemeConfig.dimens.font20.toInt()}",
-              style: ThemeConfig.styles.style20,
-            ),
-            Text(
-              "Font Big18 Title: ${ThemeConfig.dimens.font18.toInt()}",
-              style: ThemeConfig.styles.style18,
-            ),
-            Text(
-              "Font Big Title: ${ThemeConfig.dimens.font16.toInt()}",
-              style: ThemeConfig.styles.style16,
-            ),
-            Text(
-              "Font Title: ${ThemeConfig.dimens.font14.toInt()}",
-              style: ThemeConfig.styles.style14,
-            ),
-            Text(
-              "Subtitle: ${ThemeConfig.dimens.font12.toInt()}",
-              style: ThemeConfig.styles.style12,
-            ),
-            BlocBuilder<HomeBloc,HomeState>(
-                builder: (ctx,state)=>Text(
-                  context.read<HomeBloc>().text??"",
-                  style: ThemeConfig.styles.style12,
-                )),
-          ],
-        ),
+      body: BlocConsumer<HomeBloc, HomeState>(
+        listener: (context, state) {
+          if(state is HomeInitial){
+            context.read<HomeBloc>().add(GetContactEvent());
+          }
+        },
+        builder: (context, state) {
+          return ListView.separated(
+              itemBuilder: (ctx, index) {
+                ContactEntity contact = context.read<HomeBloc>().contacts[index];
+                return ListTile(
+                  title: Text(contact.firstName.toString()),
+                );
+              },
+              separatorBuilder: (ctx, index) {
+                return Divider();
+              },
+              itemCount: context.read<HomeBloc>().contacts.length);
+        },
       ),
       floatingActionButton: FloatingActionButton(
         backgroundColor: ThemeConfig.colors.contactColor,
-        onPressed: (){
-          Navigator.pushNamed(context, AppRoute.addContactRoute);
+        onPressed: () {
+          Navigator.pushNamed(context, AppRoute.addContactRoute).then((value){
+            context.read<HomeBloc>().add(GetContactEvent());
+          });
         },
         child: const Icon(Icons.add),
       ),
