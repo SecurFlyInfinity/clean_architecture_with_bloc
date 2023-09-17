@@ -15,7 +15,7 @@ class WizardPage extends StatelessWidget {
           style: ThemeConfig.styles.style20,
         ),
       ),
-      body: Container(),
+      body: Center(child: Text(ThemeConfig.strings.underConstruction),),
     );
   }
 }
