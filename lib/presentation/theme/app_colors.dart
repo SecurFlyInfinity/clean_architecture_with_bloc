@@ -7,4 +7,5 @@ class AppColors{
   Color get background  => Colors.green.shade100;
   Color get wizardColor  => Colors.blue.shade100;
   Color get contactColor  => Colors.teal.shade100;
+  Color get contactShadeColor  => Colors.teal.withOpacity(0.08);
 }

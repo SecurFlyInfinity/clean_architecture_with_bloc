@@ -69,4 +69,9 @@ class ContactsBloc extends Bloc<ContactsEvent, HomeState> {
     contacts.sort((a, b) => a.firstName!.compareTo(b.firstName!));
     emitter.call(HomeRefresh());
   }
+
+  void selectContact(int index,bool selected){
+    contacts[index].selected = !selected;
+    emit(HomeRefresh());
+  }
 }

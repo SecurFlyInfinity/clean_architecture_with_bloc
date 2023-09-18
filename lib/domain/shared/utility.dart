@@ -8,13 +8,6 @@ import 'package:flutter/foundation.dart';
 
 class Utility {
 
-  // static Image imageFromBase64String(String base64String) {
-  //   return Image.memory(
-  //     base64Decode(base64String),
-  //     fit: BoxFit.fill,
-  //   );
-  // }
-
   static Uint8List dataFromBase64String(String base64String) {
     return base64Decode(base64String);
   }
@@ -24,7 +17,6 @@ class Utility {
   }
 
   static Future<Uint8List?> compressImageSize(Uint8List images) async {
-    // Replace 'sourceFilePath' and 'destinationFilePath' with your file paths
 
     try {
 

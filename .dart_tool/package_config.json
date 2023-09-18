@@ -206,6 +206,12 @@
       "languageVersion": "2.19"
     },
     {
+      "name": "intl",
+      "rootUri": "file:///Users/shubhamrao/.pub-cache/hosted/pub.dev/intl-0.18.1",
+      "packageUri": "lib/",
+      "languageVersion": "2.12"
+    },
+    {
       "name": "js",
       "rootUri": "file:///Users/shubhamrao/.pub-cache/hosted/pub.dev/js-0.6.7",
       "packageUri": "lib/",
@@ -422,7 +428,7 @@
       "languageVersion": "3.1"
     }
   ],
-  "generated": "2023-09-17T15:05:17.916548Z",
+  "generated": "2023-09-18T17:58:07.647297Z",
   "generator": "pub",
   "generatorVersion": "3.1.2"
 }

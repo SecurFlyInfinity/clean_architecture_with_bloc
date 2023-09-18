@@ -6,9 +6,14 @@ class CTextField extends StatelessWidget {
   final ValueChanged<String>? onChanged;
   final IconData? prefixIcon;
   final String? hint;
+  final int? maxLength;
+  final bool? enable;
+  final bool? readOnly;
+  final TextInputType? keyboardType;
   final TextInputAction? textInputAction;
+  final GestureTapCallback? onTap;
 
-  const CTextField({super.key, this.controller, this.onChanged,this.prefixIcon,this.hint,this.textInputAction});
+  const CTextField({super.key, this.controller, this.onChanged,this.prefixIcon,this.hint,this.textInputAction,this.onTap,this.enable,this.readOnly,this.maxLength,this.keyboardType});
 
   @override
   Widget build(BuildContext context) {
@@ -20,14 +25,20 @@ class CTextField extends StatelessWidget {
             controller: controller,
             style: ThemeConfig.styles.style14,
             onChanged: onChanged,
+            onTap: onTap,
+            maxLength: maxLength,
+            enabled: enable,
             textInputAction: textInputAction,
+            keyboardType: keyboardType,
+            readOnly: readOnly??false,
             decoration: InputDecoration(
                 fillColor: Colors.white60,
                 filled: true,
                 border: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(5),
                 ),
-                hintText: ThemeConfig.strings.search,
+                counterText: "",
+                hintText: hint,
               label: Text(hint??"",style: ThemeConfig.styles.styleHint14,)
             ),
           ),

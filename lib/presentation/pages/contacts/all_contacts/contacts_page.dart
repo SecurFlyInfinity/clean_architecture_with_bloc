@@ -17,17 +17,51 @@ class ContactsPage extends StatelessWidget {
     }
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: ThemeConfig.colors.contactColor,
+        backgroundColor: context
+                .watch<ContactsBloc>()
+                .contacts
+                .where((e) => e.selected == true)
+                .toList()
+                .isNotEmpty
+            ? Colors.grey.shade400
+            : ThemeConfig.colors.contactColor,
         automaticallyImplyLeading: false,
         leading: IconButton(
-            onPressed: () =>Navigator.pop(context),
+            onPressed: () => Navigator.pop(context),
             icon: const Icon(Icons.close)),
-        title: Text(
-          ThemeConfig.strings.contacts,
-          style: ThemeConfig.styles.style18,
+        title: AnimatedSwitcher(
+          duration: const Duration(seconds: 1),
+          child: context
+                  .watch<ContactsBloc>()
+                  .contacts
+                  .where((e) => e.selected == true)
+                  .toList()
+                  .isNotEmpty
+              ? Text(
+                  "${context.watch<ContactsBloc>().contacts.where((e) => e.selected == true).toList().length} Selected",
+                  style: ThemeConfig.styles.style18,
+                )
+              : Text(
+                  ThemeConfig.strings.contacts,
+                  style: ThemeConfig.styles.style18,
+                ),
         ),
         actions: [
-          IconButton(onPressed: () {}, icon: const Icon(Icons.more_vert)),
+          context
+                  .watch<ContactsBloc>()
+                  .contacts
+                  .where((e) => e.selected == true)
+                  .toList()
+                  .isNotEmpty
+              ? IconButton(
+                  onPressed: () {},
+                  icon: const Icon(
+                    Icons.delete,
+                    size: 26,
+                  ))
+              : IconButton(onPressed: () {}, icon: const Icon(Icons.more_vert)),
+
+          SharedWidget.width(16)
         ],
         bottom: PreferredSize(
           preferredSize: const Size.fromHeight(60),
@@ -47,9 +81,20 @@ class ContactsPage extends StatelessWidget {
               itemBuilder: (ctx, index) {
                 ContactEntity contact = bloc.contacts[index];
                 return ListTile(
-                  onTap: () => Navigator.pushNamed(
-                      context, AppRoute.contactInfoRoute,
-                      arguments: contact),
+                  onLongPress: () {
+                    bloc.selectContact(index, contact.selected ?? false);
+                  },
+                  onTap: () {
+                    if (bloc.contacts
+                        .where((e) => e.selected == true)
+                        .toList()
+                        .isNotEmpty) {
+                      bloc.selectContact(index, contact.selected ?? false);
+                    } else {
+                      Navigator.pushNamed(context, AppRoute.contactInfoRoute,
+                          arguments: contact);
+                    }
+                  },
                   shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(30)),
                   leading: Hero(
@@ -59,6 +104,17 @@ class ContactsPage extends StatelessWidget {
                         backgroundImage: bloc.getProfile(contact.profile),
                         child: bloc.getAddImageIcon(contact.profile,
                             contact.firstName!.substring(0, 1))),
+                  ),
+                  trailing: Visibility(
+                    visible: contact.selected ?? false,
+                    child: Checkbox(
+                      shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(10)),
+                      value: contact.selected ?? false,
+                      onChanged: (v) {
+                        contact.selected = v;
+                      },
+                    ),
                   ),
                   title: Text(contact.fullName.toString()),
                 );

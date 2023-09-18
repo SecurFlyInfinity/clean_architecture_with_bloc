@@ -13,7 +13,8 @@ class ContactEntity {
       String? lastName, 
       String? companyName, 
       String? phone, 
-      String? email, 
+      String? email,
+    bool? selected,
       String? dateOfBirth, 
       String? profile, 
       String? addOn,}){
@@ -24,6 +25,7 @@ class ContactEntity {
     _email = email;
     _dateOfBirth = dateOfBirth;
     _profile = profile;
+    _selected=selected;
     _addOn = addOn;
 }
 
@@ -45,16 +47,22 @@ class ContactEntity {
   String? _dateOfBirth;
   String? _profile;
   String? _addOn;
+  bool? _selected;
 
   String? get firstName => _firstName;
   String? get fullName => _lastName!=null?"${_firstName!} ${_lastName!}":_firstName;
   String? get lastName => _lastName;
-  String? get companyName => _companyName;
+  String? get companyName => _companyName!=null && _companyName!.isNotEmpty?_companyName:null;
   String? get phone => _phone;
-  String? get email => _email;
-  String? get dateOfBirth => _dateOfBirth;
+  String? get email => _email!=null && _email!.isNotEmpty?_email:null;
+  String? get dateOfBirth => _dateOfBirth!=null && _dateOfBirth!.isNotEmpty?_dateOfBirth:null;
   String? get profile => _profile;
   String? get addOn => _addOn;
+  bool? get selected => _selected;
+
+  set selected(bool? value) {
+    _selected = value;
+  }
 
   Map<String, dynamic> toJson() {
     final map = <String, dynamic>{};

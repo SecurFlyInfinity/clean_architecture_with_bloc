@@ -24,5 +24,29 @@ class SharedWidget{
   static SizedBox width(double size)=>SizedBox(width: size);
   static SizedBox height(double size)=>SizedBox(height: size);
 
+  static snackBar({required BuildContext context, required Widget content, Duration? duration}){
+    var snackBar = SnackBar(
+      content: content,
+      margin: const EdgeInsets.all(20),
+      duration: duration??const Duration(seconds: 2),
+      behavior: SnackBarBehavior.floating,
+      shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(10)
+      ),
+    );
+    ScaffoldMessenger.of(context).showSnackBar(snackBar);
+  }
+
+  static Future<DateTime?> datePicker({required BuildContext context,required DateTime initialDate,DatePickerMode? initialDatePickerMode})async{
+    return await showDatePicker(
+      context: context,
+      initialDate: initialDate,
+      firstDate: DateTime(1950),
+      lastDate: DateTime.now(),
+      helpText: "Select Date of Birth",
+      confirmText: "Done",
+      initialDatePickerMode: initialDatePickerMode??DatePickerMode.year,
+    );
+  }
 
 }

@@ -21,4 +21,6 @@ class AppStrings{
   String get ok =>"OK";
   String get saveContactMsg =>"Add required info to save as a contact.";
   String get nameAndPhone =>"First Name and Phone should not be any  whitespace.";
+  String get contactInfo =>"Contact info";
+
 }
