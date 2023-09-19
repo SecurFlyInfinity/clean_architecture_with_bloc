@@ -12,55 +12,48 @@ class ContactsPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    if (context.read<ContactsBloc>().state is HomeInitial) {
+    if (context
+        .read<ContactsBloc>()
+        .state is HomeInitial) {
       context.read<ContactsBloc>().add(GetContactEvent());
     }
+    ContactsBloc bloc = context.watch<ContactsBloc>();
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: context
-                .watch<ContactsBloc>()
-                .contacts
-                .where((e) => e.selected == true)
-                .toList()
-                .isNotEmpty
+        backgroundColor: bloc.isSelected
             ? Colors.grey.shade400
             : ThemeConfig.colors.contactColor,
         automaticallyImplyLeading: false,
         leading: IconButton(
-            onPressed: () => Navigator.pop(context),
+            onPressed: () {
+              if(bloc.isSelected){
+                bloc.resetSelectedContact();
+              }else{
+                Navigator.pop(context);
+              }
+            },
             icon: const Icon(Icons.close)),
         title: AnimatedSwitcher(
           duration: const Duration(seconds: 1),
-          child: context
-                  .watch<ContactsBloc>()
-                  .contacts
-                  .where((e) => e.selected == true)
-                  .toList()
-                  .isNotEmpty
+          child: bloc.isSelected
               ? Text(
-                  "${context.watch<ContactsBloc>().contacts.where((e) => e.selected == true).toList().length} Selected",
-                  style: ThemeConfig.styles.style18,
-                )
+            "${bloc.selectedLength} Selected",
+            style: ThemeConfig.styles.style18,
+          )
               : Text(
-                  ThemeConfig.strings.contacts,
-                  style: ThemeConfig.styles.style18,
-                ),
+            ThemeConfig.strings.contacts,
+            style: ThemeConfig.styles.style18,
+          ),
         ),
         actions: [
-          context
-                  .watch<ContactsBloc>()
-                  .contacts
-                  .where((e) => e.selected == true)
-                  .toList()
-                  .isNotEmpty
-              ? IconButton(
-                  onPressed: () {},
-                  icon: const Icon(
-                    Icons.delete,
-                    size: 26,
-                  ))
-              : IconButton(onPressed: () {}, icon: const Icon(Icons.more_vert)),
-
+          Visibility(
+            visible: bloc.isSelected,
+            child: IconButton(
+              onPressed: () => bloc.add(DeleteContactEvent()),
+              icon: const Icon(
+                Icons.delete,
+                size: 26,
+              )),),
           SharedWidget.width(16)
         ],
         bottom: PreferredSize(
@@ -75,7 +68,6 @@ class ContactsPage extends StatelessWidget {
       ),
       body: BlocBuilder<ContactsBloc, HomeState>(
         builder: (context, state) {
-          ContactsBloc bloc = context.read<ContactsBloc>();
           return ListView.builder(
               padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 16),
               itemBuilder: (ctx, index) {
@@ -85,10 +77,7 @@ class ContactsPage extends StatelessWidget {
                     bloc.selectContact(index, contact.selected ?? false);
                   },
                   onTap: () {
-                    if (bloc.contacts
-                        .where((e) => e.selected == true)
-                        .toList()
-                        .isNotEmpty) {
+                    if (bloc.isSelected) {
                       bloc.selectContact(index, contact.selected ?? false);
                     } else {
                       Navigator.pushNamed(context, AppRoute.contactInfoRoute,
@@ -124,12 +113,13 @@ class ContactsPage extends StatelessWidget {
       ),
       floatingActionButton: FloatingActionButton(
         backgroundColor: ThemeConfig.colors.contactColor,
-        onPressed: () => Navigator.pushNamed(context, AppRoute.addContactRoute)
-            .then((value) {
-          if (value != null) {
-            context.read<ContactsBloc>().add(GetContactEvent());
-          }
-        }),
+        onPressed: () =>
+            Navigator.pushNamed(context, AppRoute.addContactRoute)
+                .then((value) {
+              if (value != null) {
+                context.read<ContactsBloc>().add(GetContactEvent());
+              }
+            }),
         child: const Icon(Icons.add),
       ),
     );

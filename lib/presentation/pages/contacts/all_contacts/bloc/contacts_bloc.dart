@@ -18,6 +18,7 @@ class ContactsBloc extends Bloc<ContactsEvent, HomeState> {
   List<ContactEntity> contacts = [];
   List<ContactEntity> allContacts = [];
 
+
   void init() {
     // cSearch = TextEditingController();
     text = "";
@@ -26,7 +27,17 @@ class ContactsBloc extends Bloc<ContactsEvent, HomeState> {
   ContactsBloc() : super(HomeInitial()) {
     on<GetContactEvent>(getContacts);
     on<SearchContactEvent>(searchContact);
+    on<DeleteContactEvent>(deleteContacts);
   }
+
+  bool get isSelected => contacts
+      .where((e) => e.selected == true)
+      .toList()
+      .isNotEmpty;
+
+  int get selectedLength => contacts
+      .where((e) => e.selected == true)
+      .toList().length;
 
   void getContacts(GetContactEvent event, Emitter emitter) async {
 
@@ -74,4 +85,27 @@ class ContactsBloc extends Bloc<ContactsEvent, HomeState> {
     contacts[index].selected = !selected;
     emit(HomeRefresh());
   }
+
+  void resetSelectedContact(){
+    for(var i in contacts){
+      i.selected=false;
+    }
+    emit(HomeRefresh());
+  }
+  void deleteContacts(DeleteContactEvent event, Emitter emitter)async{
+    var selectedContacts = contacts
+        .where((e) => e.selected == true)
+        .toList();
+
+    await ContactDao().deleteListOfContact(selectedContacts);
+
+    Logger.debug(message: "GetContacts");
+    contacts.clear();
+    allContacts.clear();
+    allContacts = await ContactDao().getAllData("");
+    contacts.addAll(allContacts);
+    contacts.sort((a, b) => a.firstName!.compareTo(b.firstName!));
+    emitter.call(HomeRefresh());
+  }
+
 }
