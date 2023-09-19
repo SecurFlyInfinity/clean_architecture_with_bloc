@@ -6,8 +6,8 @@
 /// publishedAt : "2023-09-18T17:17:53Z"
 /// content : "It's a big day for Apple users as the company is rolling out major operating system updates for most of its devices (Mac users need to wait a bit longer). Just ahead of the Apple Watch Series 9 and A… [+1461 chars]"
 
-class PopularArticalEntity {
-  PopularArticalEntity({
+class PopularArticleEntity {
+  PopularArticleEntity({
       String? author, 
       String? title, 
       String? description, 
@@ -24,7 +24,7 @@ class PopularArticalEntity {
     _content = content;
 }
 
-  PopularArticalEntity.fromJson(dynamic json) {
+  PopularArticleEntity.fromJson(dynamic json) {
     _author = json['author'];
     _title = json['title'];
     _description = json['description'];
