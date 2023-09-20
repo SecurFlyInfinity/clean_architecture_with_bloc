@@ -1,3 +1,5 @@
+import 'package:architecture/data/dto/popular_articles_dto.dart';
+
 /// author : "Kris Holt"
 /// title : "watchOS 10 has arrived, bringing widgets back to the Apple Watch"
 /// description : "It's a big day for Apple users as the company is rolling out major operating system updates for most of its devices (Mac users need to wait a bit longer). Just ahead of the Apple Watch Series 9 and Apple Watch Ultra 2 arriving later this week, the company has…"
@@ -24,6 +26,7 @@ class PopularArticleEntity {
     _content = content;
 }
 
+
   PopularArticleEntity.fromJson(dynamic json) {
     _author = json['author'];
     _title = json['title'];
@@ -32,6 +35,14 @@ class PopularArticleEntity {
     _urlToImage = json['urlToImage'];
     _publishedAt = json['publishedAt'];
     _content = json['content'];
+  }
+
+  static List<PopularArticleEntity> createArticleArray(List<Articles> json){
+    List<PopularArticleEntity> articles = [];
+    for(var a in json){
+      articles.add(PopularArticleEntity.fromJson(a.toJson()));
+    }
+    return articles;
   }
   String? _author;
   String? _title;

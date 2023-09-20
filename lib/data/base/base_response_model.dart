@@ -1,9 +1,9 @@
 import 'package:architecture/domain/enums/app_state_enum.dart';
 
-abstract class BaseResponseModel<T>{
+class BaseResponseModel<T>{
   AppStateEnum state;
+  String? message;
   T data;
-
-  BaseResponseModel({required this.state, required this.data});
+  BaseResponseModel({required this.state, required this.data, this.message=""});
 
 }
