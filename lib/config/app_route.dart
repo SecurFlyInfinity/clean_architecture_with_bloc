@@ -3,17 +3,17 @@ import 'package:architecture/presentation/pages/contacts/add_contact/add_contact
 import 'package:architecture/presentation/pages/contacts/add_contact/bloc/add_contact_bloc.dart';
 import 'package:architecture/presentation/pages/contacts/contact_info/contact_info_page.dart';
 import 'package:architecture/presentation/pages/dashboard/dashboard_page.dart';
-import 'package:architecture/presentation/pages/wizards/wizard_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import '../presentation/pages/contacts/all_contacts/bloc/contacts_bloc.dart';
 import '../presentation/pages/contacts/all_contacts/contacts_page.dart';
+import '../presentation/pages/news/news_page.dart';
 import 'extensions/page_navigation.dart';
 
 class AppRoute{
   static const String homeRoute = "/HomePage";
   static const String dashboardRoute = "/DashboardPage";
-  static const String wizardRoute = "/WizardPage";
+  static const String newsRoute = "/NewsPage";
   static const String addContactRoute = "/AddContactPage";
   static const String contactInfoRoute = "/ContactInfoPage";
 
@@ -46,9 +46,9 @@ class AppRoute{
           child: const DashboardPage(),
           isLTR: true,
         );
-        case wizardRoute:
+        case newsRoute:
         return PageNavigation.push(
-          child: const WizardPage(),
+          child: const NewsPage(),
           isLTR: true,
         );
       default:

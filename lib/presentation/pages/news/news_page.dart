@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 
 import '../../theme/theme_config.dart';
 
-class WizardPage extends StatelessWidget {
-  const WizardPage({super.key});
+class NewsPage extends StatelessWidget {
+  const NewsPage({super.key});
 
   @override
   Widget build(BuildContext context) {
