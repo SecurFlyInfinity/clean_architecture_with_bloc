@@ -6,6 +6,7 @@ import 'package:architecture/domain/repository/news_repository.dart';
 import '../../data/base/base_response_model.dart';
 
 class AppUseCase{
+
   INewsRepository newsRepository = NewsRepositoryImpl(service: NewsServiceImpl());
 
   Future<BaseResponseModel<List<PopularArticleEntity>?>> getPopularNews({String? search})async{

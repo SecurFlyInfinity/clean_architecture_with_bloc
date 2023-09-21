@@ -17,7 +17,7 @@ class NewsRepositoryImpl implements INewsRepository {
   NewsRepositoryImpl({required this.service});
 
   @override
-  Future<BaseResponseModel<List<PopularArticleEntity>?>> getPopularNews(
+  Future<BaseResponseModel<List<PopularArticleEntity>>> getPopularNews(
       {required String search}) async {
     try{
       var queryParams = {
@@ -32,25 +32,25 @@ class NewsRepositoryImpl implements INewsRepository {
         if(response.articles!.isEmpty){
           throw DataNotFoundException(false,"No data found");
         }
-        return BaseResponseModel<List<PopularArticleEntity>?>(
+        return BaseResponseModel<List<PopularArticleEntity>>(
           state: AppStateEnum.success,
           data: PopularArticleEntity.createArticleArray(response.articles!),
           message: "You have got total ${response.articles!.length} popular news"
         );
       }
-      return BaseResponseModel<List<PopularArticleEntity>?>(
+      return BaseResponseModel<List<PopularArticleEntity>>(
           state: AppStateEnum.error, data: [],
           message: "Look like you having invalid parameters");
     }on DataNotFoundException{
-      return BaseResponseModel<List<PopularArticleEntity>?>(
+      return BaseResponseModel<List<PopularArticleEntity>>(
           state: AppStateEnum.empty, data: [],
       message: "You don't have any results");
     }on NoConnectionException{
-      return BaseResponseModel<List<PopularArticleEntity>?>(
+      return BaseResponseModel<List<PopularArticleEntity>>(
           state: AppStateEnum.socket, data: [],
       message: "Please check your internet connection");
     }catch(e){
-      return BaseResponseModel<List<PopularArticleEntity>?>(
+      return BaseResponseModel<List<PopularArticleEntity>>(
           state: AppStateEnum.error, data: [],
       message: e.toString());
     }

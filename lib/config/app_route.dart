@@ -3,6 +3,7 @@ import 'package:architecture/presentation/pages/contacts/add_contact/add_contact
 import 'package:architecture/presentation/pages/contacts/add_contact/bloc/add_contact_bloc.dart';
 import 'package:architecture/presentation/pages/contacts/contact_info/contact_info_page.dart';
 import 'package:architecture/presentation/pages/dashboard/dashboard_page.dart';
+import 'package:architecture/presentation/pages/news/bloc/news_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import '../presentation/pages/contacts/all_contacts/bloc/contacts_bloc.dart';
@@ -47,10 +48,13 @@ class AppRoute{
           isLTR: true,
         );
         case newsRoute:
-        return PageNavigation.push(
-          child: const NewsPage(),
-          isLTR: true,
-        );
+          return PageNavigation.push(
+            child: BlocProvider(
+              create: (context) => NewsBloc(),
+              child: const NewsPage(),
+            ),
+            isLTR: true,
+          );
       default:
         return MaterialPageRoute(
             builder: (ctx) => const Scaffold(

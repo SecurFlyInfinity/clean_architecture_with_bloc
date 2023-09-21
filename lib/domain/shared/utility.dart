@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'dart:io';
+import 'dart:isolate';
 import 'package:architecture/config/logger.dart';
 import 'package:image/image.dart' as img;
 
@@ -8,7 +9,8 @@ import 'package:flutter/foundation.dart';
 
 class Utility {
 
-  static Uint8List dataFromBase64String(String base64String) {
+  static Uint8List dataFromBase64String(String base64String){
+
     return base64Decode(base64String);
   }
 
@@ -16,9 +18,10 @@ class Utility {
     return base64Encode(data);
   }
 
-  static Future<Uint8List?> compressImageSize(Uint8List images) async {
+  static Future<Uint8List?> compressImageSize(Uint8List images) async{
 
     try {
+
 
       const int maxSize = 500 * 1024; // 500 KB
 

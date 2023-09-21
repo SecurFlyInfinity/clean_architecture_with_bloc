@@ -10,6 +10,5 @@ class AppKeys{
   static void init(){
     localKey = LocalKeys();
     remoteKey = RemoteKeys();
-
   }
 }
