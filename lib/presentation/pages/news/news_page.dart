@@ -8,10 +8,12 @@ import '../../../config/logger.dart';
 import '../../theme/theme_config.dart';
 
 class NewsPage extends StatelessWidget {
+  
   const NewsPage({super.key});
-
+  
   @override
   Widget build(BuildContext context) {
+    
     return Scaffold(
       appBar: AppBar(
         backgroundColor: ThemeConfig.colors.wizardColor,
