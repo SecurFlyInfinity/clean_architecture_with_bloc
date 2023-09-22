@@ -7,6 +7,7 @@ import 'package:architecture/data/remote_service/news_service_impl.dart';
 import 'package:architecture/domain/entity/popular_article_entity.dart';
 import 'package:architecture/domain/enums/app_state_enum.dart';
 import 'package:architecture/domain/repository/news_repository.dart';
+import 'package:architecture/domain/types/type_def.dart';
 import 'package:intl/intl.dart';
 
 class NewsRepositoryImpl implements INewsRepository {
@@ -18,7 +19,7 @@ class NewsRepositoryImpl implements INewsRepository {
   Future<BaseResponseModel<List<PopularArticleEntity>>> getPopularNews(
       {required String search}) async {
     try{
-      var queryParams = {
+      JSON<dynamic> queryParams = {
         "q": search,
         "from": DateFormat("yyyy-MM-dd").format(DateTime.now().subtract(const Duration(days: 1))),
         "to": DateFormat("yyyy-MM-dd").format(DateTime.now().subtract(const Duration(days: 1))),

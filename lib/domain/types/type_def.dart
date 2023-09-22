@@ -1,0 +1,1 @@
+typedef JSON<T> = Map<String,T>;

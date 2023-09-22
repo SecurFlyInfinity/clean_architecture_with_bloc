@@ -1,4 +1,5 @@
 
+import 'package:architecture/domain/shared/dialog_utils.dart';
 import 'package:architecture/presentation/pages/news/bloc/news_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -27,28 +28,10 @@ class NewsPage extends StatelessWidget {
       body: BlocListener<NewsBloc, NewsState>(
         listener: (context, state) {
           if(state is NewsLoading){
-            SharedWidget.snackBar(
-              context: context,
-              content: Text(
-                "Downloading...",
-                style: ThemeConfig.styles.style14
-                    .copyWith(
-                    color: Colors.white,
-                    letterSpacing: 1.3),
-              ),
-            );
+            DialogUtils.showLoadingDialog(context, "Getting Latest News");
           }
           if(state is NewsSuccess){
-            SharedWidget.snackBar(
-              context: context,
-              content: Text(
-                "Successfully",
-                style: ThemeConfig.styles.style14
-                    .copyWith(
-                    color: Colors.white,
-                    letterSpacing: 1.3),
-              ),
-            );
+            DialogUtils.hideLoadingDialog(context);
           }
         },
         child: Center(

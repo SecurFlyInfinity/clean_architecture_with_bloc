@@ -1,4 +1,5 @@
 import 'package:architecture/presentation/theme/theme_config.dart';
+import 'package:architecture/presentation/widget/shared_widget.dart';
 import 'package:flutter/material.dart';
 
 class DialogUtils {
@@ -23,5 +24,34 @@ class DialogUtils {
             actions: actions
           );
         });
+  }
+
+  static void showLoadingDialog(BuildContext context, String message) {
+    showDialog(
+      context: context,
+      barrierDismissible: false,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          content: Padding(
+            padding: const EdgeInsets.symmetric(vertical: 30.0),
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                const CircularProgressIndicator(),
+                SharedWidget.height(20),
+                Text(
+                  message,
+                  style: ThemeConfig.styles.style16,
+                ),
+              ],
+            ),
+          ),
+        );
+      },
+    );
+  }
+
+  static void hideLoadingDialog(BuildContext context) {
+    Navigator.of(context, rootNavigator: true).pop(); // Close the dialog
   }
 }
