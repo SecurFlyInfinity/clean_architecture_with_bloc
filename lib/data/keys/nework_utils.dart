@@ -6,7 +6,7 @@ import 'dart:io';
 import 'package:flutter/foundation.dart';
 import 'package:http/http.dart' as http;
 
-import '../exception/RemoteDataSourceException.dart';
+import '../exception/remote_data_source_exception.dart';
 
 final _indent = ' ' * 11;
 
@@ -23,7 +23,7 @@ void _logRequest(
 
 
   if (method == 'POST' || method == 'PUT') {
-    debugPrint('${_indent}body: $body');
+    debugPrint('${_indent}body: ${jsonEncode(body)}');
 
     if (method == 'POST') {
       if (multipartFields != null) {
@@ -40,7 +40,7 @@ void _logResponse(http.Response response) {
   debugPrint('[http] <-- ${response.statusCode} ${response.request}');
   debugPrint('${_indent}bodyBytes: ${response.bodyBytes.length}');
   try {
-    debugPrint('${_indent}body: ${response.body}');
+    debugPrint('${_indent}body: ${jsonEncode(response.body)}');
   } catch (_) {}
 }
 

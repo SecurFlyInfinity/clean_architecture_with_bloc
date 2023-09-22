@@ -1,52 +1,60 @@
-import 'dart:isolate';
 
 import 'package:architecture/presentation/pages/news/bloc/news_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-
-import '../../../config/logger.dart';
 import '../../theme/theme_config.dart';
+import '../../widget/shared_widget.dart';
 
 class NewsPage extends StatelessWidget {
-  
   const NewsPage({super.key});
-  
+
   @override
   Widget build(BuildContext context) {
-    
     return Scaffold(
       appBar: AppBar(
         backgroundColor: ThemeConfig.colors.wizardColor,
         title: Text(
-          ThemeConfig.strings.wizardWorld,
+          ThemeConfig.strings.todayNews,
           style: ThemeConfig.styles.style20,
         ),
         actions: [
-          IconButton(onPressed: ()=>createTask(), icon: Icon(Icons.send)),
-          IconButton(onPressed: ()=>createTask(), icon: Icon(Icons.send))
+          IconButton(
+            onPressed: () => context.read<NewsBloc>().add(GetNewsEvent()),
+            icon: const Icon(Icons.send),
+          ),
         ],
       ),
-      body: Center(child: CircularProgressIndicator(),),
+      body: BlocListener<NewsBloc, NewsState>(
+        listener: (context, state) {
+          if(state is NewsLoading){
+            SharedWidget.snackBar(
+              context: context,
+              content: Text(
+                "Downloading...",
+                style: ThemeConfig.styles.style14
+                    .copyWith(
+                    color: Colors.white,
+                    letterSpacing: 1.3),
+              ),
+            );
+          }
+          if(state is NewsSuccess){
+            SharedWidget.snackBar(
+              context: context,
+              content: Text(
+                "Successfully",
+                style: ThemeConfig.styles.style14
+                    .copyWith(
+                    color: Colors.white,
+                    letterSpacing: 1.3),
+              ),
+            );
+          }
+        },
+        child: Center(
+          child: Text(ThemeConfig.strings.todayNews),
+        ),
+      ),
     );
-  }
-
-  void createTask() async {
-    // emitter.call(NewsLoading());
-    final sender = ReceivePort();
-
-    await Isolate.spawn(task, sender.sendPort);
-
-    sender.listen((total) {
-      Logger.debug(message: total.toString());
-    });
-    // emitter.call(NewsSuccess());
-  }
-
-  void task(SendPort port) async{
-    int total = 0;
-    for (int i = 0; i <= 1000000000; i++) {
-      total += i;
-    }
-    port.send(total);
   }
 }

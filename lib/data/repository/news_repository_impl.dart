@@ -1,5 +1,3 @@
-import 'dart:io';
-
 import 'package:architecture/data/base/base_response_model.dart';
 import 'package:architecture/data/dto/popular_articles_dto.dart';
 import 'package:architecture/data/exception/data_not_found_exception.dart';
@@ -22,15 +20,15 @@ class NewsRepositoryImpl implements INewsRepository {
     try{
       var queryParams = {
         "q": search,
-        "from": DateFormat("yyyy-MM-dd").format(DateTime.now()),
-        "to": DateFormat("yyyy-MM-dd").format(DateTime.now()),
+        "from": DateFormat("yyyy-MM-dd").format(DateTime.now().subtract(const Duration(days: 1))),
+        "to": DateFormat("yyyy-MM-dd").format(DateTime.now().subtract(const Duration(days: 1))),
         "sortBy": "popularity",
         "apiKey": AppKeys.remoteKey.apiKey
       };
       PopularArticlesDto response = await service.getPopularNews(queryParams);
       if (response.status!.contains("ok")) {
         if(response.articles!.isEmpty){
-          throw DataNotFoundException(false,"No data found");
+          throw DataNotFoundException(true,"No data found");
         }
         return BaseResponseModel<List<PopularArticleEntity>>(
           state: AppStateEnum.success,

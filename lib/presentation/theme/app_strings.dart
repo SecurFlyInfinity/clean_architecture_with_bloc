@@ -7,7 +7,7 @@ class AppStrings{
   String get dashboard =>"Dashboard";
   String get fontName =>"SpaceGrotesk";
   String get sqlite =>"SQLite";
-  String get wizardWorld =>"Wizard World";
+  String get todayNews =>"News";
   String get underConstruction =>"This page is Under Construction";
   String get restAPI =>"Restful API";
   String get addPicture =>"Add Picture";

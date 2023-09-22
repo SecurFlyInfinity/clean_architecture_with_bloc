@@ -31,7 +31,7 @@ class DashboardPage extends StatelessWidget {
           ),
           DashboardItem(
             backgroundColor: Colors.blue.shade50,
-            title: ThemeConfig.strings.wizardWorld,
+            title: ThemeConfig.strings.todayNews,
             subTitle: ThemeConfig.strings.restAPI,
             onTap: () => Navigator.pushNamed(context, AppRoute.newsRoute),
           ),
