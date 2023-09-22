@@ -7,9 +7,9 @@ import '../../data/base/base_response_model.dart';
 
 class AppUseCase{
 
-  INewsRepository newsRepository = NewsRepositoryImpl(service: NewsServiceImpl());
+  static INewsRepository newsRepository = NewsRepositoryImpl();
 
-  Future<BaseResponseModel<List<PopularArticleEntity>>> getPopularNews({String? search})async{
+  static Future<BaseResponseModel<List<PopularArticleEntity>>> getPopularNews({String? search})async{
     return await newsRepository.getPopularNews(search: search??"apple");
   }
 }

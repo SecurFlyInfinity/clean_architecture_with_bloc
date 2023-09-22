@@ -1,4 +1,5 @@
 import 'package:architecture/data/dto/popular_articles_dto.dart';
+import 'package:intl/intl.dart';
 
 /// author : "Kris Holt"
 /// title : "watchOS 10 has arrived, bringing widgets back to the Apple Watch"
@@ -57,7 +58,7 @@ class PopularArticleEntity {
   String? get description => _description;
   String? get url => _url;
   String? get urlToImage => _urlToImage;
-  String? get publishedAt => _publishedAt;
+  String? get publishedAt => "Updated at ${DateFormat.yMMMd().format(DateTime.parse(_publishedAt!))}";
   String? get content => _content;
 
   Map<String, dynamic> toJson() {

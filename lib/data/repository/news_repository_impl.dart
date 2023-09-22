@@ -10,10 +10,7 @@ import 'package:architecture/domain/repository/news_repository.dart';
 import 'package:architecture/domain/types/type_def.dart';
 import 'package:intl/intl.dart';
 
-class NewsRepositoryImpl implements INewsRepository {
-  INewsService service;
-
-  NewsRepositoryImpl({required this.service});
+class NewsRepositoryImpl extends INewsRepository<INewsService> {
 
   @override
   Future<BaseResponseModel<List<PopularArticleEntity>>> getPopularNews(
