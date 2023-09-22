@@ -24,8 +24,10 @@ class NewsPage extends StatelessWidget {
         ),
         actions: [
           IconButton(
-            onPressed: () => bloc.add(GetNewsEvent()),
-            icon: const Icon(Icons.send),
+            onPressed: () {
+
+            },
+            icon: const Icon(Icons.search),
           ),
         ],
       ),
