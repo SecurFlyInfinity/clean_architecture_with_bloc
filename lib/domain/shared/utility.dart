@@ -2,12 +2,15 @@ import 'dart:convert';
 import 'dart:io';
 import 'dart:isolate';
 import 'package:architecture/config/logger.dart';
+import 'package:flutter/material.dart';
 import 'package:image/image.dart' as img;
 
 import 'package:flutter/foundation.dart';
 //import 'package:flutter/material.dart';
 
 class Utility {
+
+  static hideKeyboard(BuildContext context)=>FocusScope.of(context).unfocus();
 
   static Uint8List dataFromBase64String(String base64String){
 
@@ -44,7 +47,7 @@ class Utility {
       );
 
       // Save the compressed image
-      final Uint8List compressedBytes = img.encodeJpg(compressedImage);
+      final Uint8List compressedBytes = img.encodeJpg(compressedImage,quality: 30);
       Logger.debug(tag: "compressImageSize", message: "Image Compressed");
       return compressedBytes;
     } catch (error) {
