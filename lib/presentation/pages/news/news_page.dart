@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../theme/theme_config.dart';
 import '../../widget/news_tile.dart';
+import '../../widget/shared_widget.dart';
 
 class NewsPage extends StatelessWidget {
   const NewsPage({super.key});
@@ -12,7 +13,7 @@ class NewsPage extends StatelessWidget {
   Widget build(BuildContext context) {
     NewsBloc bloc = context.read<NewsBloc>();
     if(bloc.state is NewsInitial){
-      bloc.add(GetNewsEvent());
+      bloc.add(GetNewsEvent(""));
     }
     return Scaffold(
       backgroundColor: Colors.grey.shade100,
@@ -22,14 +23,16 @@ class NewsPage extends StatelessWidget {
           ThemeConfig.strings.todayNews,
           style: ThemeConfig.styles.style20,
         ),
-        actions: [
-          IconButton(
-            onPressed: () {
-
-            },
-            icon: const Icon(Icons.search),
+        bottom: PreferredSize(
+          preferredSize: const Size.fromHeight(60),
+          child: Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: SharedWidget.search(
+                label: ThemeConfig.strings.searchNews,
+                onSubmit: (v) =>
+                    bloc.add(GetNewsEvent(v))),
           ),
-        ],
+        ),
       ),
       body: BlocConsumer<NewsBloc, NewsState>(
         listener: (context, state) {

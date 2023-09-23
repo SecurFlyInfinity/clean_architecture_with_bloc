@@ -28,7 +28,7 @@ class ContactsPage extends StatelessWidget {
         leading: IconButton(
             onPressed: () {
               if(bloc.isSelected){
-                bloc.resetSelectedContact();
+                bloc.add(ResetContactEvent());
               }else{
                 Navigator.pop(context);
               }
@@ -62,6 +62,7 @@ class ContactsPage extends StatelessWidget {
           child: Padding(
             padding: const EdgeInsets.all(8.0),
             child: SharedWidget.search(
+              label: ThemeConfig.strings.searchContacts,
                 onChanged: (v) =>
                     context.read<ContactsBloc>().add(SearchContactEvent(v))),
           ),
@@ -81,11 +82,11 @@ class ContactsPage extends StatelessWidget {
                     },
                     child: ListTile(
                       onLongPress: () {
-                        bloc.selectContact(index, contact.selected ?? false);
+                        bloc.add(SelectContactEvent(index,contact.selected ?? false));
                       },
                       onTap: () {
                         if (bloc.isSelected) {
-                          bloc.selectContact(index, contact.selected ?? false);
+                          bloc.add(SelectContactEvent(index,contact.selected ?? false));
                         } else {
                           Navigator.pushNamed(context, AppRoute.contactInfoRoute,
                               arguments: contact);
@@ -129,7 +130,6 @@ class ContactsPage extends StatelessWidget {
               if (value != null) {
                 context.read<ContactsBloc>().add(GetContactEvent());
               }
-
             }),
         child: const Icon(Icons.add),
       ),

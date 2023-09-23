@@ -1,7 +1,8 @@
 class AppStrings{
 
   String get appName =>"Clean Architecture";
-  String get search =>"Search";
+  String get searchContacts =>"Search contacts";
+  String get searchNews =>"Search news";
   String get contacts =>"Contacts";
   String get createContact =>"Create Contact";
   String get dashboard =>"Dashboard";
@@ -22,5 +23,7 @@ class AppStrings{
   String get saveContactMsg =>"Add required info to save as a contact.";
   String get nameAndPhone =>"First Name and Phone should not be any  whitespace.";
   String get contactInfo =>"Contact info";
+  String get selectDob =>"Select Date of Birth";
+  String get done =>"Done";
 
 }

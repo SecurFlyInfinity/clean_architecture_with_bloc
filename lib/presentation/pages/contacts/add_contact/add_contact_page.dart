@@ -1,6 +1,5 @@
 import 'package:architecture/config/logger.dart';
 import 'package:architecture/presentation/pages/contacts/add_contact/bloc/add_contact_bloc.dart';
-import 'package:architecture/presentation/widget/c_shape.dart';
 import 'package:architecture/presentation/widget/shared_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -142,7 +141,9 @@ class AddContactPage extends StatelessWidget {
                   readOnly: true,
                   onTap: () async {
                     var date = await SharedWidget.datePicker(
-                        context: context, initialDate: DateTime(2000));
+                      context: context,
+                      initialDate: DateTime(2000),
+                    );
                     if (date != null) {
                       cDOB.text = DateFormat.yMMMd().format(date);
                       Logger.debug(message: cDOB.text);

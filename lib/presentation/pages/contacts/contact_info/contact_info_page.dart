@@ -18,9 +18,6 @@ class ContactInfoPage extends StatelessWidget {
       backgroundColor: Colors.white,
         appBar: AppBar(
           backgroundColor: Colors.white,
-          actions: [
-            //IconButton(onPressed: () {}, icon: const Icon(Icons.edit)),
-          ],
         ),
         body: SingleChildScrollView(
           physics: const BouncingScrollPhysics(),

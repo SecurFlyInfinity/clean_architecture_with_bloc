@@ -1,12 +1,9 @@
 import 'dart:convert';
-import 'dart:io';
-import 'dart:isolate';
 import 'package:architecture/config/logger.dart';
 import 'package:flutter/material.dart';
 import 'package:image/image.dart' as img;
 
 import 'package:flutter/foundation.dart';
-//import 'package:flutter/material.dart';
 
 class Utility {
 

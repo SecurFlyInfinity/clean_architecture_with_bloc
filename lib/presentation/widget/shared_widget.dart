@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import '../theme/theme_config.dart';
 
 class SharedWidget{
-  static Widget search({TextEditingController? controller,ValueChanged<String>? onChanged}){
+  static Widget search({TextEditingController? controller,ValueChanged<String>? onChanged,ValueChanged<String>? onSubmit,required String label}){
     return ClipRRect(
       borderRadius: BorderRadius.circular(30),
       child: TextField(
@@ -15,8 +15,9 @@ class SharedWidget{
             filled: true,
             prefixIcon: const Icon(Icons.search),
             border: InputBorder.none,
-            hintText: ThemeConfig.strings.search
+            hintText: label
         ),
+        onSubmitted: onSubmit,
       ),
     );
   }
@@ -43,8 +44,8 @@ class SharedWidget{
       initialDate: initialDate,
       firstDate: DateTime(1950),
       lastDate: DateTime.now(),
-      helpText: "Select Date of Birth",
-      confirmText: "Done",
+      helpText: ThemeConfig.strings.selectDob,
+      confirmText: ThemeConfig.strings.done,
       initialDatePickerMode: initialDatePickerMode??DatePickerMode.year,
     );
   }

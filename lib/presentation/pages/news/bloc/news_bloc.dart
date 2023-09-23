@@ -22,7 +22,7 @@ class NewsBloc extends Bloc<NewsEvent, NewsState> {
   void getNews(GetNewsEvent event,Emitter emitter)async{
     emitter.call(NewsLoading());
     articles.clear();
-    var res =  await AppUseCase.getPopularNews();
+    var res =  await AppUseCase.getPopularNews(search:event.searchText);
     if(res.state == AppStateEnum.success){
       articles.addAll(res.data);
     }

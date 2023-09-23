@@ -13,21 +13,15 @@ part 'contacts_event.dart';
 part 'contacts_state.dart';
 
 class ContactsBloc extends Bloc<ContactsEvent, HomeState> {
-  // late TextEditingController cSearch;
-  String? text;
   List<ContactEntity> contacts = [];
   List<ContactEntity> allContacts = [];
-
-
-  void init() {
-    // cSearch = TextEditingController();
-    text = "";
-  }
 
   ContactsBloc() : super(HomeInitial()) {
     on<GetContactEvent>(getContacts);
     on<SearchContactEvent>(searchContact);
     on<DeleteContactEvent>(deleteContacts);
+    on<SelectContactEvent>(selectContact);
+    on<ResetContactEvent>(resetSelectedContact);
   }
 
   bool get isSelected => contacts
@@ -81,16 +75,16 @@ class ContactsBloc extends Bloc<ContactsEvent, HomeState> {
     emitter.call(HomeRefresh());
   }
 
-  void selectContact(int index,bool selected){
-    contacts[index].selected = !selected;
-    emit(HomeRefresh());
+  void selectContact(SelectContactEvent event, Emitter emitter){
+    contacts[event.index].selected = !event.isSelected;
+    emitter.call(HomeRefresh());
   }
 
-  void resetSelectedContact(){
+  void resetSelectedContact(ResetContactEvent event, Emitter emitter){
     for(var i in contacts){
       i.selected=false;
     }
-    emit(HomeRefresh());
+    emitter.call(HomeRefresh());
   }
   void deleteContacts(DeleteContactEvent event, Emitter emitter)async{
     var selectedContacts = contacts

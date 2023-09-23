@@ -10,6 +10,6 @@ class AppUseCase{
   static INewsRepository newsRepository = NewsRepositoryImpl();
 
   static Future<BaseResponseModel<List<PopularArticleEntity>>> getPopularNews({String? search})async{
-    return await newsRepository.getPopularNews(search: search??"apple");
+    return await newsRepository.getPopularNews(search: search!=null && search.isNotEmpty?search:"apple");
   }
 }
