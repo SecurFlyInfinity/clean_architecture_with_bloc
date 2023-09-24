@@ -12,7 +12,7 @@ class AppUsagePlatform{
     try {
       AppKeys.remoteKey.apiKey = await mainChannel.invokeMethod(AppKeys.localKey.methodApiKey);
     } on PlatformException catch (e) {
-      Logger.error(message: e.message!);
+      Logger.error(tag:"AppUsagePlatformTAG",message: e.message!);
     }
   }
 }

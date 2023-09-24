@@ -48,7 +48,7 @@ class Utility {
       Logger.debug(tag: "compressImageSize", message: "Image Compressed");
       return compressedBytes;
     } catch (error) {
-      Logger.error(tag: "compressImageSize",message: "Error on Image Compressed");
+      Logger.error(tag: "compressImageSizeTAG",message: "Error on Image Compressed");
       return null;
     }
   }

@@ -13,6 +13,7 @@ part 'contacts_event.dart';
 part 'contacts_state.dart';
 
 class ContactsBloc extends Bloc<ContactsEvent, HomeState> {
+  String tag = "ContactsBlocTAG";
   List<ContactEntity> contacts = [];
   List<ContactEntity> allContacts = [];
 
@@ -33,17 +34,6 @@ class ContactsBloc extends Bloc<ContactsEvent, HomeState> {
       .where((e) => e.selected == true)
       .toList().length;
 
-  void getContacts(GetContactEvent event, Emitter emitter) async {
-
-    Logger.debug(message: "GetContacts");
-    contacts.clear();
-    allContacts.clear();
-    allContacts = await ContactDao().getAllData("");
-    contacts.addAll(allContacts);
-    contacts.sort((a, b) => a.firstName!.compareTo(b.firstName!));
-    emitter.call(HomeRefresh());
-  }
-
   ImageProvider? getProfile(String? file) {
     if (file != null) {
       return MemoryImage(Utility.dataFromBase64String(file));
@@ -61,6 +51,23 @@ class ContactsBloc extends Bloc<ContactsEvent, HomeState> {
     return null;
   }
 
+  ///
+  /// FEATURE - Get all contacts
+  ///
+  void getContacts(GetContactEvent event, Emitter emitter) async {
+
+    Logger.debug(tag:tag,message: "GetContacts");
+    contacts.clear();
+    allContacts.clear();
+    allContacts = await ContactDao().getAllData("");
+    contacts.addAll(allContacts);
+    contacts.sort((a, b) => a.firstName!.compareTo(b.firstName!));
+    emitter.call(HomeRefresh());
+  }
+
+  ///
+  /// FEATURE - Search Contacts
+  ///
   void searchContact(SearchContactEvent event, Emitter emitter) {
     contacts.clear();
     contacts = allContacts
@@ -75,17 +82,28 @@ class ContactsBloc extends Bloc<ContactsEvent, HomeState> {
     emitter.call(HomeRefresh());
   }
 
+  ///
+  /// FEATURE - Select Contacts
+  ///
   void selectContact(SelectContactEvent event, Emitter emitter){
     contacts[event.index].selected = !event.isSelected;
     emitter.call(HomeRefresh());
   }
 
+  ///
+  /// FEATURE - Reset Selected Contacts
+  ///
   void resetSelectedContact(ResetContactEvent event, Emitter emitter){
     for(var i in contacts){
       i.selected=false;
     }
     emitter.call(HomeRefresh());
   }
+
+
+  ///
+  /// FEATURE - Delete Selected Contacts
+  ///
   void deleteContacts(DeleteContactEvent event, Emitter emitter)async{
     var selectedContacts = contacts
         .where((e) => e.selected == true)
@@ -93,7 +111,7 @@ class ContactsBloc extends Bloc<ContactsEvent, HomeState> {
 
     await ContactDao().deleteListOfContact(selectedContacts);
 
-    Logger.debug(message: "GetContacts");
+    Logger.debug(tag:tag,message: "GetContacts");
     contacts.clear();
     allContacts.clear();
     allContacts = await ContactDao().getAllData("");

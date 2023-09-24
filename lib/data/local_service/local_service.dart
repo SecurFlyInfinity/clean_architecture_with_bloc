@@ -32,6 +32,6 @@ class LocalService{
     var connection = _db;
     await connection.rawDelete("delete from ${ContactDao().tableName}");
 
-    Logger.info(tag: "Deleted", message: "All local database deleted successfully");
+    Logger.info(tag: "deleteAllTablesTAG", message: "All local database deleted successfully");
   }
 }

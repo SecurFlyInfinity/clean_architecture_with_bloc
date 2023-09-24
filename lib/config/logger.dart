@@ -1,21 +1,21 @@
 import 'package:flutter/foundation.dart';
 
 class Logger{
-  static void debug({String? tag,required Object message}){
+  static void debug({required String tag,required Object message}){
     if (kDebugMode) {
-      print("DEBUG ${tag??"TAG"}: $message");
+      print("DEBUG $tag: $message");
     }
   }
 
-  static void error({String? tag,required Object message}){
+  static void error({required String tag,required Object message}){
     if (kDebugMode) {
-      print("ERROR ${tag??"TAG"}: $message");
+      print("ERROR $tag: $message");
     }
   }
 
-  static void info({String? tag,required Object message}){
+  static void info({required String tag,required Object message}){
     if (kDebugMode) {
-      print("INFO ${tag??"TAG"}: $message");
+      print("INFO $tag: $message");
     }
   }
 }

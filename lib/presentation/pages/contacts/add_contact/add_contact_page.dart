@@ -146,7 +146,7 @@ class AddContactPage extends StatelessWidget {
                     );
                     if (date != null) {
                       cDOB.text = DateFormat.yMMMd().format(date);
-                      Logger.debug(message: cDOB.text);
+                      Logger.debug(tag: "AddContactPageTAG",message: cDOB.text);
                     }
                   },
                 ),

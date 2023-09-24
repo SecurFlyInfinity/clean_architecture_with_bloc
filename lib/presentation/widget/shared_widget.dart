@@ -10,6 +10,7 @@ class SharedWidget{
         controller: controller,
         style: ThemeConfig.styles.style14,
         onChanged: onChanged,
+        textInputAction: TextInputAction.search,
         decoration: InputDecoration(
             fillColor: Colors.white60,
             filled: true,

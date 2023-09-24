@@ -1,0 +1,11 @@
+//
+//  Keys.xcconfig
+//  Runner
+//
+//  Created by Shubham Rao on 22/09/23.
+//
+
+// Configuration settings file format documentation can be found at:
+// https://help.apple.com/xcode/#/dev745c5c974
+
+API_KEY = 59635c92c2004faa8c5b68d816ab68dd

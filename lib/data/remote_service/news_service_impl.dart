@@ -2,6 +2,7 @@ import 'dart:io';
 import 'package:architecture/data/dto/popular_articles_dto.dart';
 import 'package:architecture/data/keys/app_keys.dart';
 import 'package:architecture/data/keys/nework_utils.dart';
+import 'package:architecture/presentation/theme/theme_config.dart';
 import '../../domain/types/type_def.dart';
 import '../exception/remote_data_source_exception.dart';
 import '../exception/exceptions.dart';
@@ -22,7 +23,7 @@ class NewsServiceImpl implements INewsService{
       return PopularArticlesDto.fromJson(res);
 
     }on SocketException{
-      throw NoConnectionException(true,"Please check your internet connection");
+      throw NoConnectionException(true, AppKeys.localKey.checkNetwork);
     }catch(e){
       throw RemoteDataSourceException(300, e.toString());
     }

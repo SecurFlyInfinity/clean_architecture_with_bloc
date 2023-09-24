@@ -100,9 +100,7 @@ class ContactDao extends IDao<ContactEntity>{
       final db = await service.db();
       int count=0;
       for(var i in contacts){
-        //count += await db.delete(tableName,whereArgs: );
         count += await db.rawDelete("delete from $tableName where $colPhone=${i.phone}");
-
       }
       Logger.debug(tag:"Table $tableName Deleted",message: count);
       return count;

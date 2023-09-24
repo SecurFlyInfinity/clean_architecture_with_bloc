@@ -13,12 +13,13 @@ class ContactsPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    ContactsBloc bloc = context.watch<ContactsBloc>();
     if (context
         .read<ContactsBloc>()
         .state is HomeInitial) {
-      context.read<ContactsBloc>().add(GetContactEvent());
+      bloc.add(GetContactEvent());
     }
-    ContactsBloc bloc = context.watch<ContactsBloc>();
+
     return Scaffold(
       appBar: AppBar(
         backgroundColor: bloc.isSelected

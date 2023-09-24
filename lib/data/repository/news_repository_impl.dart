@@ -26,25 +26,25 @@ class NewsRepositoryImpl extends INewsRepository<INewsService> {
       PopularArticlesDto response = await service.getPopularNews(queryParams);
       if (response.status!.contains("ok")) {
         if(response.articles!.isEmpty){
-          throw DataNotFoundException(true,"No data found");
+          throw DataNotFoundException(true,AppKeys.localKey.noDataFound);
         }
         return BaseResponseModel<List<PopularArticleEntity>>(
           state: AppStateEnum.success,
           data: PopularArticleEntity.createArticleArray(response.articles!),
-          message: "You have got total ${response.articles!.length} popular news"
+          message: AppKeys.localKey.totalPopularNews(response.articles!.length.toString())
         );
       }
       return BaseResponseModel<List<PopularArticleEntity>>(
           state: AppStateEnum.error, data: [],
-          message: "Look like you having invalid parameters");
+          message: AppKeys.localKey.invalidParams);
     }on DataNotFoundException{
       return BaseResponseModel<List<PopularArticleEntity>>(
           state: AppStateEnum.empty, data: [],
-      message: "You don't have any results");
+      message: AppKeys.localKey.haveNotResult);
     }on NoConnectionException{
       return BaseResponseModel<List<PopularArticleEntity>>(
           state: AppStateEnum.socket, data: [],
-      message: "Please check your internet connection");
+      message: AppKeys.localKey.checkNetwork);
     }catch(e){
       return BaseResponseModel<List<PopularArticleEntity>>(
           state: AppStateEnum.error, data: [],

@@ -11,7 +11,7 @@ part 'news_state.dart';
 
 
 class NewsBloc extends Bloc<NewsEvent, NewsState> {
-
+  String tag = "NewsBlocTAG";
   List<PopularArticleEntity> articles = [];
 
   NewsBloc() : super(NewsInitial()) {
@@ -26,7 +26,7 @@ class NewsBloc extends Bloc<NewsEvent, NewsState> {
     if(res.state == AppStateEnum.success){
       articles.addAll(res.data);
     }
-    Logger.debug(tag:"GetNewsEvent",message: res.message!);
+    Logger.debug(tag:tag,message: res.message!);
     emitter.call(NewsSuccess());
   }
 
