@@ -2,7 +2,9 @@ import 'package:flutter/material.dart';
 
 extension PageNavigation on PageRouteBuilder{
 
+  
   static PageRouteBuilder push({required Widget child, bool isLTR = false}){
+    
     return PageRouteBuilder(
       pageBuilder: (context, animation, secondaryAnimation) => child,
       transitionsBuilder: (context, animation, secondaryAnimation, child) {
@@ -17,6 +19,7 @@ extension PageNavigation on PageRouteBuilder{
         );
       },
     );
+    
   }
 
 }
