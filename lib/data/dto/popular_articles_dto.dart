@@ -1,6 +1,3 @@
-/// status : "ok"
-/// totalResults : 2437
-/// articles : [{"source":{"id":"engadget","name":"Engadget"},"author":"Kris Holt","title":"watchOS 10 has arrived, bringing widgets back to the Apple Watch","description":"It's a big day for Apple users as the company is rolling out major operating system updates for most of its devices (Mac users need to wait a bit longer). Just ahead of the Apple Watch Series 9 and Apple Watch Ultra 2 arriving later this week, the company has…","url":"https://www.engadget.com/watchos-10-has-arrived-bringing-widgets-back-to-the-apple-watch-171753537.html","urlToImage":"https://s.yimg.com/ny/api/res/1.2/1HLemmF7N.697ufEdQ_JBg--/YXBwaWQ9aGlnaGxhbmRlcjt3PTEyMDA7aD02OTc-/https://s.yimg.com/os/creatr-uploaded-images/2023-06/413ea3e0-03cc-11ee-9fd3-4f5e9da21729","publishedAt":"2023-09-18T17:17:53Z","content":"It's a big day for Apple users as the company is rolling out major operating system updates for most of its devices (Mac users need to wait a bit longer). Just ahead of the Apple Watch Series 9 and A… [+1461 chars]"}]
 
 class PopularArticlesDto {
   PopularArticlesDto({
@@ -12,6 +9,7 @@ class PopularArticlesDto {
     _articles = articles;
 }
 
+  
   PopularArticlesDto.fromJson(dynamic json) {
     _status = json['status'];
     _totalResults = json['totalResults'];
