@@ -51,9 +51,7 @@ class NewsPage extends StatelessWidget {
             itemCount: bloc.articles.length,
             itemBuilder: (ctx, index) {
               return NewsTile(
-                onTap: (){
-                  Navigator.pushNamed(context, AppRoute.newsInfoRoute);
-                },
+                onTap: ()=>Navigator.pushNamed(context, AppRoute.newsInfoRoute),
                 title: bloc.articles[index].title!,
                 description:bloc.articles[index].content!,
                 imageUrl: bloc.articles[index].urlToImage!,
