@@ -23,6 +23,7 @@ class NewsInfoPage extends StatelessWidget {
         child: Padding(
           padding: const EdgeInsets.all(16.0),
           child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               ClipRRect(
                 borderRadius: const BorderRadius.vertical(top: Radius.circular(10.0)),
@@ -30,7 +31,7 @@ class NewsInfoPage extends StatelessWidget {
                   news.urlToImage!,
                   fit: BoxFit.cover,
                   width: double.infinity,
-                  height: 150.0,
+                  height: 200.0,
                   errorBuilder: (ctx, result, progress) {
                     return const Center(
                         child: Padding(
@@ -40,6 +41,8 @@ class NewsInfoPage extends StatelessWidget {
                   },
                 ),
               ),
+              Text(news.title!,style: ThemeConfig.styles.style18.copyWith(fontWeight: FontWeight.w800),),
+              Text(news.content!,style: ThemeConfig.styles.style14,)
             ],
           ),
         ),
