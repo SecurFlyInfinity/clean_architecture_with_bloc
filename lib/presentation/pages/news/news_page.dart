@@ -1,3 +1,4 @@
+import 'package:architecture/config/app_route.dart';
 import 'package:architecture/domain/shared/dialog_utils.dart';
 import 'package:architecture/presentation/pages/news/bloc/news_bloc.dart';
 import 'package:flutter/material.dart';
@@ -50,6 +51,9 @@ class NewsPage extends StatelessWidget {
             itemCount: bloc.articles.length,
             itemBuilder: (ctx, index) {
               return NewsTile(
+                onTap: (){
+                  Navigator.pushNamed(context, AppRoute.newsInfoRoute);
+                },
                 title: bloc.articles[index].title!,
                 description:bloc.articles[index].content!,
                 imageUrl: bloc.articles[index].urlToImage!,

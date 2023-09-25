@@ -1,9 +1,11 @@
 import 'package:architecture/domain/entity/contact_entity.dart';
+import 'package:architecture/domain/entity/popular_article_entity.dart';
 import 'package:architecture/presentation/pages/contacts/add_contact/add_contact_page.dart';
 import 'package:architecture/presentation/pages/contacts/add_contact/bloc/add_contact_bloc.dart';
 import 'package:architecture/presentation/pages/contacts/contact_info/contact_info_page.dart';
 import 'package:architecture/presentation/pages/dashboard/dashboard_page.dart';
 import 'package:architecture/presentation/pages/news/bloc/news_bloc.dart';
+import 'package:architecture/presentation/pages/news/news_info_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import '../presentation/pages/contacts/all_contacts/bloc/contacts_bloc.dart';
@@ -17,9 +19,16 @@ class AppRoute{
   static const String newsRoute = "/NewsPage";
   static const String addContactRoute = "/AddContactPage";
   static const String contactInfoRoute = "/ContactInfoPage";
+  static const String newsInfoRoute = "/NewsInfoPage";
 
   static Route<dynamic> generateRoute(RouteSettings settings) {
     switch (settings.name) {
+      case newsInfoRoute:
+        PopularArticleEntity news = settings.arguments as PopularArticleEntity;
+        return PageNavigation.push(
+          child: NewsInfoPage(news: news),
+          isLTR: true,
+        );
       case contactInfoRoute:
         ContactEntity contact = settings.arguments as ContactEntity;
         return PageNavigation.push(
