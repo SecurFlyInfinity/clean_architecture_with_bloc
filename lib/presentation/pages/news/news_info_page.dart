@@ -1,4 +1,5 @@
 import 'package:architecture/domain/entity/popular_article_entity.dart';
+import 'package:architecture/presentation/widget/shared_widget.dart';
 import 'package:flutter/material.dart';
 
 import '../../theme/theme_config.dart';
@@ -41,7 +42,9 @@ class NewsInfoPage extends StatelessWidget {
                   },
                 ),
               ),
+              SharedWidget.height(16),
               Text(news.title!,style: ThemeConfig.styles.style18.copyWith(fontWeight: FontWeight.w800),),
+              SharedWidget.height(16),
               Text(news.content!,style: ThemeConfig.styles.style14,)
             ],
           ),
